@@ -5,6 +5,7 @@ build/
 !**/src/main/**
 !**/src/test/**
 src/test/java/StringTest.java
+src/test/java/SetTest.java
 
 ### STS ###
 .apt_generated
