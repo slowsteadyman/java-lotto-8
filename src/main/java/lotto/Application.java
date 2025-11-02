@@ -1,7 +1,14 @@
 package lotto;
 
+import lotto.Input;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        String rawPurchaseAmount = Input.readPurchaseAmount();
+
+        String rawWinningNumber = Input.readWinningNumber();
+
+        String rawBonusNumber = Input.readBonusNumber();
+
     }
 }
