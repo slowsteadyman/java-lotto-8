@@ -8,9 +8,9 @@ public class Input {
         return Console.readLine();
     }
 
-    public static String readWinningNumber() {
+    public static String[] readWinningNumbers() {
         System.out.println("당첨 번호를 입력해 주세요.");
-        return Console.readLine();
+        return Console.readLine().split(",", -1);
     }
 
     public static String readBonusNumber() {
