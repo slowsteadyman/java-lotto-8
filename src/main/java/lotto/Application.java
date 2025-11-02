@@ -1,11 +1,16 @@
 package lotto;
 
+import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Application {
     public static void main(String[] args) {
         String rawPurchaseAmount;
         String[] rawWinningNumbers;
         String rawBonusNumber;
         int purchaseAmount;
+        List<Lotto> lottos = new ArrayList<>();
         Lotto winningNumbers;
         int bonusNumber;
 
@@ -18,6 +23,9 @@ public class Application {
                 System.out.println(e.getMessage());
             }
         }
+
+        lottos = Lotto.purchaseLottos(purchaseAmount);
+        Output.informPurchase(lottos);
 
         while (true) {
             rawWinningNumbers = Input.readWinningNumbers();

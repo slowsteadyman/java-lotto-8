@@ -1,5 +1,7 @@
 package lotto;
 
+import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -7,7 +9,7 @@ public class Lotto {
     private final List<Integer> numbers;
     public static final int MIN_LOTTO = 1;
     public static final int MAX_LOTTO = 45;
-    private final String ERROR_LOTTOS_ARE_6 = "[ERROR] 로또 번호는 6개여야 합니다.";
+    private static final String ERROR_LOTTOS_ARE_6 = "[ERROR] 로또 번호는 6개여야 합니다.";
     private static final String ERROR_LOTTONUMBER_BOUNDARY =
         "[ERROR] 로또 번호는 1 ~ 45 사이의 숫자여야 합니다.";
     private static final String ERROR_LOTTONUMBER_DUPLICATE =
@@ -38,20 +40,18 @@ public class Lotto {
     }
 
     public static int validateBonusNumber(Lotto lotto, String rawBonusNumber) {
-        int bonusNumber = 0;
+        int bonusNumber;
         try {
             bonusNumber = Integer.parseInt(rawBonusNumber);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ERROR_BONUSNUMBER_IS_NUMBER);
         }
-
         for (Integer lottoNumber : lotto.numbers) {
             validateBoundary(lottoNumber);
             if (bonusNumber == lottoNumber) {
                 throw new IllegalArgumentException(ERROR_LOTTONUMBER_DUPLICATE);
             }
         }
-
         return bonusNumber;
     }
 
@@ -59,5 +59,43 @@ public class Lotto {
         if (lottoNumber < MIN_LOTTO || lottoNumber > MAX_LOTTO) {
             throw new IllegalArgumentException(ERROR_LOTTONUMBER_BOUNDARY);
         }
+    }
+
+    public static int howManyMatchLotto(Lotto lottoA, Lotto lottoB) {
+        int match = 0;
+        for (Integer lottoNumber : lottoA.numbers)  {
+            if (lottoB.numbers.contains(lottoNumber)) {
+                match++;
+            }
+        }
+        return match;
+    }
+
+    public static Boolean isAlreadyPurchased(List<Lotto> lottos, Lotto newLotto) {
+        for  (Lotto lotto : lottos) {
+            if (howManyMatchLotto(lotto, newLotto) == 6) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List<Lotto> purchaseLottos(int purchaseAmount) {
+        List<Lotto> lottos = new ArrayList<>();
+
+        while (purchaseAmount > 0) {
+            Lotto newLotto = new Lotto(Randoms.pickUniqueNumbersInRange(1,45,6));
+            if (!isAlreadyPurchased(lottos, newLotto)) {
+                lottos.add(newLotto);
+                purchaseAmount --;
+            }
+        }
+
+        return lottos;
+    }
+
+    public void printLotto() {
+        List<String> lottoNumbers = this.numbers.stream().map(String::valueOf).toList();
+        System.out.printf("[%s]\n", String.join(", ", lottoNumbers));
     }
 }
