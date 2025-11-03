@@ -12,18 +12,16 @@ public class Output {
     }
 
     public static void printResults(List<Prize> results, int purchaseAmount) {
-        float profit = 0;
         System.out.println("당첨 통계");
         System.out.println("---");
         for (Prize prize : Prize.values()) {
-            int prizeCount = Collections.frequency(results, prize);
             if (prize.equals(Prize.NOTHING)) {
                 continue;
             }
+            int prizeCount = Collections.frequency(results, prize);
             System.out.printf("%s (%s원) - %d개\n",
                 prize.getMatch(), String.format("%,d", prize.getMoney()), prizeCount);
-            profit += prize.getMoney() * prizeCount;
         }
-        System.out.printf("총 수익률은 %.1f%%입니다.\n", (profit / purchaseAmount) * 100);
+        System.out.printf("총 수익률은 %.1f%%입니다.\n", Utils.profit(results) * 100);
     }
 }

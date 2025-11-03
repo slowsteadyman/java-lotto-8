@@ -55,4 +55,12 @@ public class Utils {
                 return Prize.NOTHING;
         }
     }
+
+    public static float profit(List<Prize> results) {
+        float profit = 0;
+        for (Prize result : results) {
+            profit += result.getMoney();
+        }
+        return profit / (results.size() * 1000);
+    }
 }
