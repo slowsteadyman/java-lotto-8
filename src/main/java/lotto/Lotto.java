@@ -1,7 +1,5 @@
 package lotto;
 
-import camp.nextstep.edu.missionutils.Randoms;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -24,20 +22,38 @@ public class Lotto {
     }
 
     private void validate(List<Integer> numbers) {
-        HashSet<Integer> removeDuplicates = new HashSet<>();
+        HashSet<Integer> removeDuplicates = Utils.removeDuplicates(numbers);
 
         if (numbers.size() != 6) {
             throw new IllegalArgumentException(ERROR_LOTTOS_ARE_6);
         }
 
-        for (Integer lottoNumber : numbers) {
-            validateBoundary(lottoNumber);
-            removeDuplicates.add(lottoNumber);
-        }
-
         if (removeDuplicates.size() != 6) {
             throw new IllegalArgumentException(ERROR_LOTTONUMBER_DUPLICATE);
         }
+
+        for (Integer lottoNumber : numbers) {
+            validateBoundary(lottoNumber);
+        }
+    }
+
+    public void printLotto() {
+        Collections.sort(this.numbers);
+        List<String> lottoNumbers = this.numbers.stream().map(String::valueOf).toList();
+        System.out.printf("[%s]\n", String.join(", ", lottoNumbers));
+    }
+
+    public Boolean isAlreadyPurchased(List<Lotto> lottos) {
+        for  (Lotto lotto : lottos) {
+            if (howManyMatchLotto(this, lotto) == 6) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean contains(int bonusNumber) {
+        return this.numbers.contains(bonusNumber);
     }
 
     public static int validateBonusNumber(Lotto lotto, String rawBonusNumber) {
@@ -56,12 +72,6 @@ public class Lotto {
         return bonusNumber;
     }
 
-    public static void validateBoundary(Integer lottoNumber) {
-        if (lottoNumber < MIN_LOTTO || lottoNumber > MAX_LOTTO) {
-            throw new IllegalArgumentException(ERROR_LOTTONUMBER_BOUNDARY);
-        }
-    }
-
     public static int howManyMatchLotto(Lotto lottoA, Lotto lottoB) {
         int match = 0;
         for (Integer lottoNumber : lottoA.numbers)  {
@@ -72,39 +82,9 @@ public class Lotto {
         return match;
     }
 
-    public static Boolean isAlreadyPurchased(List<Lotto> lottos, Lotto newLotto) {
-        for  (Lotto lotto : lottos) {
-            if (howManyMatchLotto(lotto, newLotto) == 6) {
-                return true;
-            }
+    public static void validateBoundary(Integer lottoNumber) {
+        if (lottoNumber < MIN_LOTTO || lottoNumber > MAX_LOTTO) {
+            throw new IllegalArgumentException(ERROR_LOTTONUMBER_BOUNDARY);
         }
-        return false;
-    }
-
-    public static List<Lotto> purchaseLottos(int purchaseAmount) {
-        List<Lotto> lottos = new ArrayList<>();
-
-        while (purchaseAmount > 0) {
-            Lotto newLotto = new Lotto(Randoms.pickUniqueNumbersInRange(1,45,6));
-            if (!isAlreadyPurchased(lottos, newLotto)) {
-                lottos.add(newLotto);
-                purchaseAmount --;
-            }
-        }
-
-        return lottos;
-    }
-
-    public void printLotto() {
-        Collections.sort(this.numbers);
-        List<String> lottoNumbers = this.numbers.stream().map(String::valueOf).toList();
-        System.out.printf("[%s]\n", String.join(", ", lottoNumbers));
-    }
-
-    public Boolean contains(int bonusNumber) {
-        if  (this.numbers.contains(bonusNumber)) {
-            return true;
-        }
-        return false;
     }
 }

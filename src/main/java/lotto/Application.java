@@ -1,6 +1,5 @@
 package lotto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
@@ -8,9 +7,10 @@ public class Application {
         String rawPurchaseAmount;
         String[] rawWinningNumbers;
         String rawBonusNumber;
+
         int purchaseAmount;
-        List<Lotto> lottos = new ArrayList<>();
-        Lotto winningNumbers;
+        List<Lotto> lottos;
+        Lotto winningLotto;
         int bonusNumber;
 
         while (true) {
@@ -23,13 +23,14 @@ public class Application {
             }
         }
 
-        lottos = Lotto.purchaseLottos(purchaseAmount);
-        Output.informPurchase(lottos);
+        lottos = Utils.purchaseLottos(purchaseAmount);
+        Output.printPurchase(lottos);
 
         while (true) {
             rawWinningNumbers = Input.readWinningNumbers();
             try {
-                winningNumbers = new Lotto(Validator.ValidateWinningNumbers(rawWinningNumbers));
+                List<Integer> winningNumbers = Validator.ValidateWinningNumbers(rawWinningNumbers);
+                winningLotto = new Lotto(winningNumbers);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -39,14 +40,14 @@ public class Application {
         while (true) {
             rawBonusNumber = Input.readBonusNumber();
             try {
-                bonusNumber = Lotto.validateBonusNumber(winningNumbers, rawBonusNumber);
+                bonusNumber = Lotto.validateBonusNumber(winningLotto, rawBonusNumber);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
 
-        List<Prize> results = Result.results(lottos, winningNumbers, bonusNumber);
-        Output.informResults(results);
+        List<Prize> lottoResults = Utils.lottoResults(lottos, winningLotto, bonusNumber);
+        Output.printResults(lottoResults, purchaseAmount);
     }
 }

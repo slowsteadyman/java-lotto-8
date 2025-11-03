@@ -22,7 +22,7 @@ public class Validator {
             throw new IllegalArgumentException(ERROR_PURCHASEAMOUNT_DIVIDED_1000);
         }
 
-        return purchaseAmount / 1000;
+        return purchaseAmount;
     }
 
     public static List<Integer> ValidateWinningNumbers(String[] rawWinningNumbers) {
