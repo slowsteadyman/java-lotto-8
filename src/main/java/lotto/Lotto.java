@@ -41,7 +41,7 @@ public class Lotto {
     public void printLotto() {
         List<Integer> temp = new ArrayList<>(this.numbers);
         Collections.sort(temp);
-        List<String> lottoNumbers = this.numbers.stream().map(String::valueOf).toList();
+        List<String> lottoNumbers = temp.stream().map(String::valueOf).toList();
         System.out.printf("[%s]\n", String.join(", ", lottoNumbers));
     }
 
