@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Validator {
-    private static final String ERROR_PURCHASEAMOUNT_IS_NUMBER = "[ERROR] 구입 금액은 숫자여야 합니다.";
-    private static final String ERROR_PURCHASEAMOUNT_DIVIDED_1000 =
+    public static final String ERROR_PURCHASEAMOUNT_IS_NUMBER = "[ERROR] 구입 금액은 숫자여야 합니다.";
+    public static final String ERROR_PURCHASEAMOUNT_DIVIDED_1000 =
         "[ERROR] 구입 금액은 1000으로 나누어 떨어져야 합니다.";
-    private static final String ERROR_WINNINGNUMBER_IS_NUMBER = "[ERROR] 로또 번호는 ,로 구분된 숫자여야 합니다.";
+    public static final String ERROR_WINNINGNUMBER_IS_NUMBER = "[ERROR] 로또 번호는 ,로 구분된 숫자여야 합니다.";
 
     public static int ValidatePurchaseAmount(String rawPurchaseAmount) {
         int purchaseAmount = 0;

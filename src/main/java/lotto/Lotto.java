@@ -9,12 +9,12 @@ public class Lotto {
     private final List<Integer> numbers;
     public static final int MIN_LOTTO = 1;
     public static final int MAX_LOTTO = 45;
-    private static final String ERROR_LOTTOS_ARE_6 = "[ERROR] 로또 번호는 6개여야 합니다.";
-    private static final String ERROR_LOTTONUMBER_BOUNDARY =
+    public static final String ERROR_LOTTOS_ARE_6 = "[ERROR] 로또 번호는 6개여야 합니다.";
+    public static final String ERROR_LOTTONUMBER_BOUNDARY =
         "[ERROR] 로또 번호는 1 ~ 45 사이의 숫자여야 합니다.";
-    private static final String ERROR_LOTTONUMBER_DUPLICATE =
+    public static final String ERROR_LOTTONUMBER_DUPLICATE =
         "[ERROR] 로또 번호는 중복이 없어야 합니다.";
-    private static final String ERROR_BONUSNUMBER_IS_NUMBER =
+    public static final String ERROR_BONUSNUMBER_IS_NUMBER =
         "[ERROR] 보너스 번호는 숫자여야 합니다.";
 
     public Lotto(List<Integer> numbers) {
