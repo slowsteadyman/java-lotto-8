@@ -1,6 +1,5 @@
 package lotto;
 
-import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,5 +46,7 @@ public class Application {
             }
         }
 
+        List<Prize> results = Result.results(lottos, winningNumbers, bonusNumber);
+        Output.informResults(results);
     }
 }
