@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -38,7 +39,8 @@ public class Lotto {
     }
 
     public void printLotto() {
-        Collections.sort(this.numbers);
+        List<Integer> temp = new ArrayList<>(this.numbers);
+        Collections.sort(temp);
         List<String> lottoNumbers = this.numbers.stream().map(String::valueOf).toList();
         System.out.printf("[%s]\n", String.join(", ", lottoNumbers));
     }
