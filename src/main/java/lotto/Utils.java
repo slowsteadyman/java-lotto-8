@@ -19,10 +19,10 @@ public class Utils {
         List<Lotto> lottos = new ArrayList<>();
 
         while (purchaseCount > 0) {
-            Lotto newLotto = new Lotto(Randoms.pickUniqueNumbersInRange(1,45,6));
+            Lotto newLotto = new Lotto(Randoms.pickUniqueNumbersInRange(1, 45, 6));
             if (!newLotto.isAlreadyPurchased(lottos)) {
                 lottos.add(newLotto);
-                purchaseCount --;
+                purchaseCount--;
             }
         }
 
@@ -55,6 +55,4 @@ public class Utils {
                 return Prize.NOTHING;
         }
     }
-
-
 }
